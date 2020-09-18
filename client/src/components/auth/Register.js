@@ -3,21 +3,26 @@ import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import { CLEAR_ERRORS } from '../../context/types';
 
-export const Register = () => {
+export const Register = (props) => {
 	const alertContext = useContext(AlertContext);
 	const authContext = useContext(AuthContext);
 
 	const { setAlert } = alertContext;
-	const { register, error, clearError } = authContext;
+	const { register, error, clearError, isAuthenticated } = authContext;
 
 	useEffect(
 		() => {
+			if (isAuthenticated) {
+				props.history.push('/');
+			}
+
 			if (error === 'User already exists') {
 				setAlert(error, 'danger');
 				CLEAR_ERRORS();
 			}
 		},
-		[ error ]
+		// eslind-disable-next-line
+		[ error, isAuthenticated, props.history ]
 	);
 
 	const [ user, setUser ] = useState({
