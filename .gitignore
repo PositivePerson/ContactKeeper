@@ -1,8 +1,10 @@
 node_modules/
+/config/production.json
+/config/default.json
 
 /client/build
 
-.DC_Store
+.DS_Store
 /client/.env.local
 /client/.env.development.local
 /client/.env.test.local
